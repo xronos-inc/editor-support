@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
-pub fn greet(name: &str) -> Vec<String> {
-    vec![name.to_string(), "Hello, lfanalysis-wasm!".to_string()]
+pub fn federate_names(lf_file: String) -> Vec<String> {
+    lfanalysis::federate_names(lf_file)
 }

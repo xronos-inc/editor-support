@@ -7,4 +7,5 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
+lfanalysis = { version = "0.1.0", path = "../lfanalysis" }
 wasm-bindgen = "0.2"
