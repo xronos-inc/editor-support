@@ -2,11 +2,14 @@ mod ast;
 
 pub fn federate_names(lf_file: String) -> Vec<String> {
     let cst = lexpr::datum::from_str(&lf_file).unwrap();
-    vec![
-        String::from("federate1"),
-        String::from("federate2"),
-        lf_file[..lf_file.len().max(8)].to_string(),
-    ]
+    let model = ast::parse_model(cst.as_ref());
+    model
+        .reactors
+        .iter()
+        .filter(|r| r.is_federated)
+        .flat_map(|r| r.instantiations.iter().map(|i| i.name.clone()))
+        .collect()
+    // vec!["this is still a test".to_string()]
 }
 
 #[cfg(test)]

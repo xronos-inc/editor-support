@@ -17,10 +17,10 @@ pub enum Keyword {
 }
 #[derive(Debug)]
 pub struct Model {
-    target: Target,
-    imports: Vec<Import>,
-    preambles: Vec<Preamble>,
-    reactors: Vec<Reactor>,
+    pub target: Target,
+    pub imports: Vec<Import>,
+    pub preambles: Vec<Preamble>,
+    pub reactors: Vec<Reactor>,
 }
 #[derive(Debug)]
 pub struct Target {
@@ -36,7 +36,7 @@ pub struct Preamble {
 }
 #[derive(Debug)]
 pub struct Instantiation {
-    name: String,
+    pub name: String,
 }
 
 // sList(
@@ -65,11 +65,11 @@ pub struct Instantiation {
 //     sList("modes", object.getModes()));
 #[derive(Debug)]
 pub struct Reactor {
-    name: String,
+    pub name: String,
     // fingerprint: [u8],
     // attributes: Vec<Attribute>,
-    is_main: bool,
-    is_federated: bool,
+    pub is_main: bool,
+    pub is_federated: bool,
     // is_realtime: bool,
     // type_parms: Vec<TypeParm>,
     // parameters: Vec<Parameter>,
@@ -83,7 +83,7 @@ pub struct Reactor {
     // timers: Vec<Timer>,
     // actions: Vec<Action>,
     // watchdogs: Vec<Watchdog>,
-    instantiations: Vec<Instantiation>,
+    pub instantiations: Vec<Instantiation>,
     // connections: Vec<Connection>,
     // reactions: Vec<Reaction>,
     // modes: Vec<Mode>,
