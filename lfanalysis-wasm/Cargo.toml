@@ -7,5 +7,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
+console_error_panic_hook = "0.1.7"
 lfanalysis = { version = "0.1.0", path = "../lfanalysis" }
+lfdeploy = { version = "0.1.0", path = "../lfdeploy" }
 wasm-bindgen = "0.2"

@@ -1,4 +1,6 @@
-use lexpr::{datum, print, Datum, Value};
+use std::path::PathBuf;
+
+use lexpr::datum;
 
 #[derive(Debug, Clone, Copy)]
 pub enum Keyword {
@@ -14,6 +16,11 @@ pub enum Keyword {
     IsFederated,
     IsRealtime,
     TodoUnrecognized,
+}
+#[derive(Debug)]
+pub struct LfFile {
+    pub path: PathBuf,
+    pub model: Model,
 }
 #[derive(Debug)]
 pub struct Model {
@@ -89,7 +96,28 @@ pub struct Reactor {
     // modes: Vec<Mode>,
 }
 
-pub fn parse_model(cst: datum::Ref) -> Model {
+pub fn parse(cst: &str) -> LfFile {
+    let cst = lexpr::datum::from_str(&cst).unwrap();
+    let model = parse_model(cst.as_ref());
+    LfFile {
+        path: PathBuf::from(
+            cst.list_iter()
+                .unwrap()
+                .next()
+                .unwrap()
+                .list_iter()
+                .unwrap()
+                .next()
+                .unwrap()
+                .as_str()
+                .unwrap()
+                .to_string(),
+        ),
+        model,
+    }
+}
+
+fn parse_model(cst: datum::Ref) -> Model {
     let mut iter = cst.list_iter().unwrap();
     let ogspan = iter.next().unwrap();
     let mut rest = iter.next().unwrap();

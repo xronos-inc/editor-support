@@ -1,20 +1,17 @@
-mod ast;
+pub mod ast;
 
-pub fn federate_names(lf_file: String) -> Vec<String> {
-    let cst = lexpr::datum::from_str(&lf_file).unwrap();
-    let model = ast::parse_model(cst.as_ref());
+pub fn federate_names(lf_file: &str) -> Vec<String> {
+    let model = ast::parse(lf_file).model;
     model
         .reactors
         .iter()
         .filter(|r| r.is_federated)
         .flat_map(|r| r.instantiations.iter().map(|i| i.name.clone()))
         .collect()
-    // vec!["this is still a test".to_string()]
 }
 
 #[cfg(test)]
 mod tests {
-    use self::ast::parse_model;
 
     use super::*;
 
@@ -23,8 +20,7 @@ mod tests {
         let expected = expect_test::expect![[r#""#]];
         expected.assert_eq(&format!(
             "{:?}",
-            parse_model(
-                lexpr::datum::from_str(
+            ast::parse(
                     r#"
 (("/home/peter/lingua-franca/test/C/src/docker/federated/DistributedCountContainerized.lf" 0 0 0 23 0)
  ((() model)
@@ -156,9 +152,6 @@ mod tests {
                   (() ((() is-assign) (() #t)))
                   (() ((() is-trailing-comma) (() #f)))))))))))))))))))))
             "#
-                )
-                .unwrap()
-                .as_ref()
             )
         ));
     }
