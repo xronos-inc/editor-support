@@ -1,3 +1,5 @@
+use std::path::PathBuf;
+
 pub mod ast;
 
 pub fn federate_names(lf_file: &str) -> Vec<String> {
@@ -8,6 +10,19 @@ pub fn federate_names(lf_file: &str) -> Vec<String> {
         .filter(|r| r.is_federated)
         .flat_map(|r| r.instantiations.iter().map(|i| i.name.clone()))
         .collect()
+}
+
+pub fn main_reactor_name(lf_file: &str) -> Option<String> {
+    let model = ast::parse(lf_file).model;
+    model
+        .reactors
+        .iter()
+        .find(|r| r.is_main || r.is_federated)
+        .map(|r| r.name.clone())
+}
+
+pub fn path(lf_file: &str) -> PathBuf {
+    ast::parse(lf_file).path
 }
 
 #[cfg(test)]

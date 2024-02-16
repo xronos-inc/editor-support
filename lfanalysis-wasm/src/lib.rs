@@ -21,3 +21,13 @@ pub fn federate_names(lf_file: &str) -> Vec<String> {
 pub fn deploy_command(lf_file: &str) -> JsBindingCommand {
     lfdeploy::deploy_command(lf_file).into()
 }
+
+#[wasm_bindgen]
+pub fn main_reactor_name(lf_file: &str) -> Option<String> {
+    lfanalysis::main_reactor_name(lf_file)
+}
+
+#[wasm_bindgen]
+pub fn path(lf_file: &str) -> String {
+    lfanalysis::path(lf_file).to_string_lossy().to_string()
+}
