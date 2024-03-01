@@ -3,7 +3,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
-use lingua_franca::{backends::lfc::LfcJsonArgs, package::ConfigFile};
+use liblingo::{backends::lfc::LfcJsonArgs, package::ConfigFile};
 
 pub fn lfc_json(lf_abspath: &Path) -> io::Result<Option<String>> {
     let lingo_toml = lingo_path(lf_abspath);
