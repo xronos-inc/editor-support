@@ -1,5 +1,10 @@
 [workspace]
 
-members = ["lfanalysis", "lfdeploy", "lfbuildconfig", "lingo"]
-exclude = ["lfanalysis-wasm"]
+members = [
+    "lfanalysis",
+    "lfanalysis-wasm",
+    "lfdeploy",
+    "lfbuildconfig",
+    "lingo",
+]
 resolver = "2"
