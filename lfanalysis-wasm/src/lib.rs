@@ -1,6 +1,9 @@
 mod interface_types;
 
-use std::process::Command;
+use std::{
+    path::{Path, PathBuf},
+    process::Command,
+};
 
 use lfdeploy::CommandDescription;
 use wasm_bindgen::prelude::*;
@@ -25,6 +28,11 @@ pub fn deploy_command(lf_file: &str) -> JsBindingCommand {
 #[wasm_bindgen]
 pub fn main_reactor_name(lf_file: &str) -> Option<String> {
     lfanalysis::main_reactor_name(lf_file)
+}
+
+#[wasm_bindgen]
+pub fn lfc_json(lf_file: &str) -> Option<String> {
+    lfbuildconfig::lfc_json(Path::new(lf_file)).map_or(None, |ok| ok)
 }
 
 #[wasm_bindgen]
