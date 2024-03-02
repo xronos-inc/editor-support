@@ -2,7 +2,7 @@
 
 members = [
     "lfanalysis",
-    "lfanalysis-wasm",
+    "lfwasm",
     "lfdeploy",
     "lfbuildconfig",
     "lingo",

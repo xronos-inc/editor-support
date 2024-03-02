@@ -1,5 +1,5 @@
 [package]
-name = "lfanalysis-wasm"
+name = "lfwasm"
 version = "0.1.0"
 edition = "2021"
 
@@ -13,3 +13,4 @@ lfbuildconfig = { version = "0.1.0", path = "../lfbuildconfig" }
 lfdeploy = { version = "0.1.0", path = "../lfdeploy" }
 wasm-bindgen = "0.2"
 getrandom = { version = "0.2", features = ["js"] }
+js-sys = "0.3.68"

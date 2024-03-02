@@ -408,18 +408,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "lfanalysis-wasm"
-version = "0.1.0"
-dependencies = [
- "console_error_panic_hook",
- "getrandom",
- "lfanalysis",
- "lfbuildconfig",
- "lfdeploy",
- "wasm-bindgen",
-]
-
-[[package]]
 name = "lfbuildconfig"
 version = "0.1.0"
 dependencies = [
@@ -434,6 +422,19 @@ version = "0.1.0"
 dependencies = [
  "lfanalysis",
  "lfbuildconfig",
+]
+
+[[package]]
+name = "lfwasm"
+version = "0.1.0"
+dependencies = [
+ "console_error_panic_hook",
+ "getrandom",
+ "js-sys",
+ "lfanalysis",
+ "lfbuildconfig",
+ "lfdeploy",
+ "wasm-bindgen",
 ]
 
 [[package]]
