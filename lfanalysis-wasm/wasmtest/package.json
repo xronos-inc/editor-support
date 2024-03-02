@@ -2,20 +2,25 @@
   "name": "wasmtest",
   "version": "1.0.0",
   "description": "",
-  "main": "out/index.js",
+  "main": "out/test.js",
+  "type": "commonjs",
   "scripts": {
-    "test": "jest"
+    "wasm": "wasm-pack build ..",
+    "test": "pnpm exec webpack && mocha out"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@jest/globals": "^29.7.0",
-    "@types/jest": "^29.5.12",
-    "@types/node": "^20.11.24"
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.11.24",
+    "webpack": "^5.90.0",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "jest": "^29.7.0",
-    "ts-jest": "^29.1.2"
+    "lfanalysis-wasm": "link:../pkg",
+    "mocha": "^10.3.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3"
   }
 }

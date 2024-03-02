@@ -1,9 +1,13 @@
-import {expect, test} from '@jest/globals';
+// var lfw = require('lfanalysis-wasm')
+// import * as lfw from 'lfanalysis-wasm'
 
-function sum(a: number, b: number) {
-  return a + b;
-}
-
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
+var assert = require('assert');
+describe('lfw', function () {
+  describe('lfc_json', function () {
+    it('should produce json from physical file without panicking', async function () {
+      const lfw = await import('lfanalysis-wasm')
+      Object.keys(lfw).forEach((prop)=> console.log("lfw property: " + prop));
+      assert.equal(lfw.lfc_json("/home/peter/xronos/editor-support/lfanalysis-wasm/wasmtest/lf/src/minimal.lf"), "");
+    });
+  });
 });

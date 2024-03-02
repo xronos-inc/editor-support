@@ -32,7 +32,7 @@ pub fn main_reactor_name(lf_file: &str) -> Option<String> {
 
 #[wasm_bindgen]
 pub fn lfc_json(lf_file: &str) -> Option<String> {
-    lfbuildconfig::lfc_json(Path::new(lf_file)).map_or(None, |ok| ok)
+    lfbuildconfig::lfc_json(Path::new(lf_file)).map_or_else(|err| Some(err.to_string()), |ok| ok)
 }
 
 #[wasm_bindgen]

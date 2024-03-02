@@ -8,7 +8,15 @@ use liblingo::{backends::lfc::LfcJsonArgs, package::ConfigFile};
 pub fn lfc_json(lf_abspath: &Path) -> io::Result<Option<String>> {
     let lingo_toml = lingo_path(lf_abspath);
     let root = workspace_root(lf_abspath);
-    let config: ConfigFile = ConfigFile::from(&lingo_toml)?;
+    let config: ConfigFile = ConfigFile::from(
+        &lingo_toml,
+        Box::new(|_| {
+            web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(
+                "oops, this isn't implemented yet",
+            ));
+            panic!("big oops.")
+        }),
+    )?;
     let config = config.to_config(&root);
     let app = config
         .apps
