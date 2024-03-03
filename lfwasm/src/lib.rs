@@ -1,12 +1,7 @@
 mod interface_types;
 
-use std::{
-    io,
-    path::{Path, PathBuf},
-    process::Command,
-};
+use std::{io, path::Path};
 
-use lfdeploy::CommandDescription;
 use wasm_bindgen::prelude::*;
 
 use crate::interface_types::JsBindingCommand;
@@ -30,7 +25,7 @@ fn do_fs_read(path: &Path, js_file_system_read: &js_sys::Function) -> io::Result
         .unwrap_or_else(|| {
             Err(io::Error::new(
                 io::ErrorKind::Other,
-                format!("JS closure js_file_system_read did not return a string"),
+                "JS closure js_file_system_read did not return a string".to_string(),
             ))
         })
 }
@@ -38,6 +33,7 @@ fn do_fs_read(path: &Path, js_file_system_read: &js_sys::Function) -> io::Result
 #[wasm_bindgen]
 pub fn init() {
     std::panic::set_hook(Box::new(console_error_panic_hook::hook));
+    wasm_logger::init(wasm_logger::Config::default());
 }
 
 #[wasm_bindgen]

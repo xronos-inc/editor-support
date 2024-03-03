@@ -1,0 +1,14 @@
+[package]
+name = "test"
+version = "0.1.0"
+
+[properties]
+
+[[app]]
+name = "minimal"
+target = "C"
+main = "src/minimal.lf"
+
+[app.dependencies]
+
+[app.properties]
