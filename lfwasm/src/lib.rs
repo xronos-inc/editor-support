@@ -25,7 +25,10 @@ fn do_fs_read(path: &Path, js_file_system_read: &js_sys::Function) -> io::Result
         .unwrap_or_else(|| {
             Err(io::Error::new(
                 io::ErrorKind::Other,
-                "JS closure js_file_system_read did not return a string".to_string(),
+                format!(
+                    "JS closure js_file_system_read({}) did not return a string",
+                    path.to_string_lossy()
+                ),
             ))
         })
 }
