@@ -8,7 +8,8 @@ use crate::interface_types::JsBindingCommand;
 
 /// ## Panics
 /// Panics if js_file_system_read does not take in a string (representing a path) and return a
-/// string (representing the contents of the file at that path) or throw an error.
+/// string (representing the contents of the file at that path) or undefined (if the file does not
+/// exist).
 fn do_fs_read(path: &Path, js_file_system_read: &js_sys::Function) -> io::Result<String> {
     js_file_system_read
         .call1(&JsValue::null(), &JsValue::from_str(path.to_str().unwrap()))
@@ -19,14 +20,25 @@ fn do_fs_read(path: &Path, js_file_system_read: &js_sys::Function) -> io::Result
                     format!("error occurred during file system read: {:#?}", err),
                 ))
             },
-            |ok| Ok(ok.as_string()),
+            |ok| {
+                if let Some(contents) = ok.as_string() {
+                    Ok(Some(contents))
+                } else if ok.is_undefined() {
+                    Err(io::Error::new(
+                        io::ErrorKind::NotFound,
+                        format!("No file contents found at {}", path.to_string_lossy()),
+                    ))
+                } else {
+                    Ok(None)
+                }
+            },
         )
         .transpose()
         .unwrap_or_else(|| {
             Err(io::Error::new(
                 io::ErrorKind::Other,
                 format!(
-                    "JS closure js_file_system_read({}) did not return a string",
+                    "JS closure js_file_system_read({}) did not return a string or undefined",
                     path.to_string_lossy()
                 ),
             ))
