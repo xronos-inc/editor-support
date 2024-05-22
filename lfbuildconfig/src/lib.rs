@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: © 2024 Xronos Inc.
+// SPDX-License-Identifier: BSD-3-Clause
 use std::{
     io,
     path::{Path, PathBuf},
