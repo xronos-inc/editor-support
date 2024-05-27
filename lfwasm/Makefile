@@ -1,2 +1,2 @@
 pkg: Cargo.toml Cargo.lock $(wildcard src/*)
-	wasm-pack build .
+	./run_wasm_pack.sh
