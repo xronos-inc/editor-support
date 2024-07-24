@@ -99,7 +99,7 @@ pub struct Reactor {
 }
 
 pub fn parse(cst: &str) -> LfFile {
-    let cst = lexpr::datum::from_str(&cst).unwrap();
+    let cst = lexpr::datum::from_str(cst).unwrap();
     let model = parse_model(cst.as_ref());
     LfFile {
         path: PathBuf::from(
@@ -121,13 +121,13 @@ pub fn parse(cst: &str) -> LfFile {
 
 fn parse_model(cst: datum::Ref) -> Model {
     let mut iter = cst.list_iter().unwrap();
-    let ogspan = iter.next().unwrap();
-    let mut rest = iter.next().unwrap();
+    let _ogspan = iter.next().unwrap();
+    let rest = iter.next().unwrap();
     assert!(iter.next().is_none());
     let mut iter = rest.list_iter().unwrap();
-    let checkme = iter.next().unwrap();
-    let mut next = iter.next().unwrap();
-    let mut target = parse_target(next);
+    let _checkme = iter.next().unwrap();
+    let next = iter.next().unwrap();
+    let target = parse_target(next);
     let mut imports = Option::None;
     let mut preambles = Option::None;
     let mut reactors = Option::None;
@@ -163,11 +163,11 @@ fn parse_model(cst: datum::Ref) -> Model {
 
 fn get_field(cst: datum::Ref) -> (Keyword, datum::Ref) {
     let mut iter = cst.list_iter().unwrap();
-    let ogspan = iter.next().unwrap();
+    let _ogspan = iter.next().unwrap();
     dbg!(cst.value().to_string());
     let (header, rest) = iter.next().unwrap().as_pair().unwrap();
     let mut iter = header.list_iter().unwrap();
-    let ogspan = iter.next().unwrap();
+    let _ogspan = iter.next().unwrap();
     let name = iter.next().unwrap();
     assert!(iter.next().is_none());
     let name = name.as_symbol().unwrap();
@@ -189,21 +189,21 @@ fn get_field(cst: datum::Ref) -> (Keyword, datum::Ref) {
     (k, rest)
 }
 
-fn parse_target(cst: datum::Ref) -> Target {
+fn parse_target(_cst: datum::Ref) -> Target {
     Target { /*cst: cst.into()*/ }
 }
 
 fn parse_imports(cst: datum::Ref) -> Vec<Import> {
     cst.list_iter()
         .unwrap()
-        .map(|cst| Import { /*cst: cst.into()*/ })
+        .map(|_cst| Import { /*cst: cst.into()*/ })
         .collect()
 }
 
 fn parse_preambles(cst: datum::Ref) -> Vec<Preamble> {
     cst.list_iter()
         .unwrap()
-        .map(|cst| Preamble { /*cst: cst.into()*/ })
+        .map(|_cst| Preamble { /*cst: cst.into()*/ })
         .collect()
 }
 
@@ -216,16 +216,16 @@ fn parse_reactors(cst: datum::Ref) -> Vec<Reactor> {
 
 fn parse_reactor(cst: datum::Ref) -> Reactor {
     let mut iter = cst.list_iter().unwrap();
-    let ogspan = iter.next().unwrap();
+    let _ogspan = iter.next().unwrap();
     let mut iter = iter.next().unwrap().list_iter().unwrap();
-    let ogspan = iter.next().unwrap();
+    let _ogspan = iter.next().unwrap();
     let name = iter.next().unwrap();
     let fingerprint = iter.next().unwrap();
     dbg!(fingerprint.value().to_string());
     let mut instantiations = Option::None;
     let mut is_main = Option::None;
     let mut is_federated = Option::None;
-    while let Some(next) = iter.next() {
+    for next in iter {
         let (keyword, cst) = get_field(next);
         match keyword {
             Keyword::IsMain => {
@@ -247,7 +247,7 @@ fn parse_reactor(cst: datum::Ref) -> Reactor {
     }
     dbg!(name.value().to_string());
     let mut iter = name.list_iter().unwrap();
-    let ogspan = iter.next().unwrap();
+    let _ogspan = iter.next().unwrap();
     let name = iter.next().unwrap();
     dbg!(name.value());
     let name = name.as_str().unwrap();
@@ -269,13 +269,13 @@ fn parse_instantiations(cst: datum::Ref) -> Vec<Instantiation> {
 
 fn parse_instantiation(cst: datum::Ref) -> Instantiation {
     let mut iter = cst.list_iter().unwrap();
-    let ogspan = iter.next().unwrap();
+    let _ogspan = iter.next().unwrap();
     let name = iter.next().unwrap();
     let mut iter = name.list_iter().unwrap();
-    let ogspan = iter.next().unwrap();
+    let _ogspan = iter.next().unwrap();
     let name = iter.next().unwrap();
     let mut iter = name.list_iter().unwrap();
-    let ogspan = iter.next().unwrap();
+    let _ogspan = iter.next().unwrap();
     let name = iter.next().unwrap();
     // assert!(iter.next().is_none()); // FIXME
     dbg!(name.value().to_string());
@@ -290,7 +290,7 @@ fn parse_bool(cst: datum::Ref) -> bool {
     let unboxed = iter.next().unwrap();
     assert!(iter.next().is_none());
     let mut iter = unboxed.list_iter().unwrap();
-    let ogspan = iter.next().unwrap();
+    let _ogspan = iter.next().unwrap();
     let value = iter.next().unwrap();
     dbg!(value.value());
     assert!(iter.next().is_none());
